@@ -31,36 +31,36 @@ def Gen_Model(DATA,Dim_Embedding,HIDDEN_DIM,Dropout,Batch_tam,Epochs):
     df['label'] = encoder.fit_transform(df["label"])
     N_Clases = len(encoder.classes_)
 
+    # Separar data sets
     train_val_df, test_df = train_test_split(
     df, test_size=0.15, random_state=42, stratify=df['label']
     )
-
     train_df, val_df = train_test_split(
         train_val_df, test_size=0.25, random_state=42, stratify=train_val_df['label']
     )
 
-    # Contar todas las palabras
+    # Contar palabras
     all_tokens = [token for text in train_df["text"] for token in tokenize(text)]
     word_counts = Counter(all_tokens)
 
-    # Crear el vocabulario (mapa de palabra a índice)
+    # Crear el vocabulario
     vocab = {"<pad>": 0, "<unk>": 1} #Agregar por defecto pading y desconocido
     idx_counter = 2
 
-    # Solo añadir al vocabulario las palabras mas comunes
+    # Solo añadir al vocabulario las palabras mas comunes (al final tome el vocabulario completo pero deje eso)
     for word, _ in word_counts.most_common(VOCAB_SIZE - 2):
         vocab[word] = idx_counter
         idx_counter += 1
 
     print(f"Tamaño del vocabulario: {len(vocab)}")
 
-    # Función Collate para Padding Dinámico (Crucial en PyTorch)
+    # Agregar padding dinámico
     def collate_fn(batch):
-        # batch es una lista de (sequence, label)
-        sequences = [item[0] for item in batch]
+        # Batch es una lista de (sequence, label)
+        sequences = [item[0] for item in batch] 
         labels    = [item[1] for item in batch]
 
-        # Aplicar padding: sequences ahora tienen el mismo largo (el largo del más largo del batch)
+        # Aplicar padding para nromalizar las entradas a el modelo
         sequences_padded = pad_sequence(sequences, batch_first=True, padding_value=vocab["<pad>"])
         return sequences_padded.to(device), torch.stack(labels).to(device)
 
@@ -74,32 +74,31 @@ def Gen_Model(DATA,Dim_Embedding,HIDDEN_DIM,Dropout,Batch_tam,Epochs):
     val_loader   = DataLoader(val_dataset  , batch_size=Batch_tam, shuffle=True, collate_fn=collate_fn)
     test_loader  = DataLoader(test_dataset , batch_size=Batch_tam, shuffle=False, collate_fn=collate_fn)
 
-    # Inicializar el modelo
+    # Generar modelo
     model = GRUClassifier(len(vocab), Dim_Embedding, HIDDEN_DIM, 1, N_Clases, Dropout).to(device)
 
-    # Definir la función de pérdida y el optimizador
-    criterion = nn.CrossEntropyLoss() #problema de clasificacion multimple entonces se usa Cross Entropy
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.001) #usamos adam como optimizador cun un step de 0.001
+    # Funcion de perdida y optimizador
+    criterion = nn.CrossEntropyLoss() 
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.001) 
     
     train_loss = []
     val_loss   = []
     min        = 100
     print("\nIniciando el entrenamiento...")
     for epoch in range(Epochs):
-        trainL     = train(model, train_loader, criterion, optimizer)
-        valL, valA = evaluate(model, val_loader, criterion)
+        trainL     = train(model, train_loader, criterion, optimizer) #Entrenamiento
+        valL, valA = evaluate(model, val_loader, criterion) #Validacion
 
-        if valL < min:
+        if valL < min: #tomar el mejor modelo
             min    = valL
             final_Mod = model
-        train_loss.append(trainL)
+
+        train_loss.append(trainL) #guardar perdida
         val_loss.append(valL)
         
         print(f"Época {epoch+1}/{Epochs} | Pérdida Train: {trainL:.4f} | Pérdida Val: {valL:.4f} | Precisión Val: {valA:.4f}")
 
-    valL, valA = evaluate(final_Mod, val_loader, criterion)
-    print(f"Pérdida Val: {valL:.4f} | "f"Precisión Val: {valA:.4f}")
-    testL, testA = evaluate(final_Mod, test_loader, criterion)
+    testL, testA = evaluate(final_Mod, test_loader, criterion) #test
     print("\n\n=========TEST=========")
     print(f"Pérdida Test: {testL:.4f} | "f"Precisión Test: {testA:.4f}")
 

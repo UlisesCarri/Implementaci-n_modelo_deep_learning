@@ -42,8 +42,8 @@ Finalmente, se guardaron los pesos del modelo en un archivo .pt, y tanto el voca
 
 ## Documentos
 
-Gen_Model.py     : Archivo de Python para generar el modelo
+* Gen_Model.py         : Archivo de Python para generar el modelo.
 
-Model_Componetnes: contiene las funciones utiles y las arquitecturas del mmodelo y del dataset
+* Model_Componetnes.py : contiene las funciones utiles y las arquitecturas del mmodelo y del dataset.
 
-Exe_Model        : Archivo para ejecutrar el modelo guardado en el .pt y los .pkl
+* Exe_Model.py         : Archivo para ejecutrar el modelo guardado en el .pt y los .pkl (colocar enunciados en ingles).
