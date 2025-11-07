@@ -1,4 +1,4 @@
-# Implementaci-n_modelo_deep_learning
+# Implementacion de modelo de Deep Learning
 
 Ulises Orlando Carrizalez Lerín - A01027715
 
