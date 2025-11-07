@@ -30,10 +30,9 @@ def predict_emotion(text_a_predecir):
 
     print(f"Emoción Predicha: {emotions[int(predicted_index)]}")
 
-load_model("vocabV2.pkl","label_encoderV2.pkl","GruNet.pt")
+load_model("vocabV3.pkl","label_encoderV3.pkl","GruNetV3.pt")
 print("Emotions: sadness,joy,love,anger,fear, surprise")
 
 while True:
     ine = input("Write a sentence with emotion(MAX 32 words):")
-    #"I hate this movie, it sucks"
     predict_emotion(ine)

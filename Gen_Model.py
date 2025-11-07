@@ -20,7 +20,7 @@ HIDDEN_DIM    = 128
 Dropout  = 0.5
 Batch_tam    = 32
 Epochs    = 10
-DATA          = r"emotions.csv"
+DATA          = r"emotions_newV2.csv"
 
 def Gen_Model(DATA,Dim_Embedding,HIDDEN_DIM,Dropout,Batch_tam,Epochs):
     # Recuperar csv
@@ -104,10 +104,10 @@ def Gen_Model(DATA,Dim_Embedding,HIDDEN_DIM,Dropout,Batch_tam,Epochs):
 
     plot(train_loss,val_loss)
     try:
-        torch.save(final_Mod.state_dict(), "GruNet.pt") #Salvar pesos de modelo
-        with open("vocabV2.pkl", "wb") as f: #Salvar el vocabulario
+        torch.save(final_Mod.state_dict(), "GruNetV3.pt") #Salvar pesos de modelo
+        with open("vocabV3.pkl", "wb") as f: #Salvar el vocabulario
             pickle.dump(vocab, f)
-        with open("label_encoderV2.pkl", "wb") as f: #Salvar encoder
+        with open("label_encoderV3.pkl", "wb") as f: #Salvar encoder
             pickle.dump(encoder, f)
 
         print("El modelo se guardo con exito :D")
