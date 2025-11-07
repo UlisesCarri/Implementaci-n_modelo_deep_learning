@@ -1,4 +1,4 @@
-# Implementacion de modelo de Deep Learning
+# Implementacion de Modelo de Deep Learning
 
 Ulises Orlando Carrizalez Lerín - A01027715
 
@@ -43,5 +43,7 @@ Finalmente, se guardaron los pesos del modelo en un archivo .pt, y tanto el voca
 ## Documentos
 
 Gen_Model.py     : Archivo de Python para generar el modelo
+
 Model_Componetnes: contiene las funciones utiles y las arquitecturas del mmodelo y del dataset
+
 Exe_Model        : Archivo para ejecutrar el modelo guardado en el .pt y los .pkl
