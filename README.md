@@ -3,7 +3,7 @@
 Ulises Orlando Carrizalez Lerín - A01027715
 
 ## Dataset
-
+**link:** https://www.kaggle.com/datasets/bhavikjikadara/emotions-dataset/data 
 Este proyecto hace uso del conjunto de datos de clasificación de emociones "Emotions Dataset" de Kaggle, este está diseñado para facilitar la investigación y la experimentación en el campo del procesamiento del lenguaje natural y el análisis de emociones. Contiene una colección diversa de muestras de texto, cada una etiquetada con la emoción correspondiente que transmite. Las emociones pueden variar desde felicidad y entusiasmo hasta enojo, tristeza y más.
 
 Las emociones del dataset se clasifican en seis categorías:
@@ -42,8 +42,8 @@ Finalmente, se guardaron los pesos del modelo en un archivo .pt, y tanto el voca
 
 ## Documentos
 
-* Gen_Model.py         : Archivo de Python para generar el modelo.
+* **Gen_Model.py**         : Archivo de Python para generar el modelo.
 
-* Model_Componetnes.py : contiene las funciones utiles y las arquitecturas del mmodelo y del dataset.
+* **Model_Componetnes.py** : contiene las funciones utiles y las arquitecturas del mmodelo y del dataset.
 
-* Exe_Model.py         : Archivo para ejecutrar el modelo guardado en el .pt y los .pkl (colocar enunciados en ingles).
+* **Exe_Model.py**         : Archivo para ejecutrar el modelo guardado en el .pt y los .pkl (colocar enunciados en ingles).
