@@ -77,16 +77,33 @@ class GRUClassifier(nn.Module):
             input_size  = embedding_dim,
             hidden_size = hidden_dim,
             num_layers  = num_layers,
-            dropout     = dropout_rate,
             batch_first = True
         )
-        #self.dropout = nn.Dropout(dropout_rate) #para evitar overfiting
         self.fc = nn.Linear(hidden_dim, num_classes) #capa densa para calsificar
 
     def forward(self, text):
         embedded       = self.embedding(text)
         output, hidden = self.gru(embedded)
         hidden_final   = hidden[-1] 
-        #dropped        = self.dropout(hidden_final)
         output         = self.fc(hidden_final) 
+        return output
+
+class LSTMClassifier(nn.Module):
+    def __init__(self, vocab_size, embedding_dim, hidden_dim, num_layers, num_classes, dropout_rate):
+        super().__init__()
+        self.embedding = nn.Embedding(vocab_size, embedding_dim)
+        self.lstm = nn.LSTM(
+            input_size=embedding_dim,
+            hidden_size=hidden_dim,
+            num_layers=num_layers,
+            dropout=dropout_rate,
+            batch_first=True
+        )
+        self.fc = nn.Linear(hidden_dim, num_classes)
+
+    def forward(self, text):
+        embedded = self.embedding(text)
+        output, (hidden, cell) = self.lstm(embedded)
+        hidden_final = hidden[-1]
+        output = self.fc(hidden_final)
         return output

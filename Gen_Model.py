@@ -19,7 +19,7 @@ Dim_Embedding = 100
 HIDDEN_DIM    = 128
 Dropout  = 0.5
 Batch_tam    = 32
-Epochs    = 10
+Epochs    = 30
 DATA          = r"emotions_newV2.csv"
 
 def Gen_Model(DATA,Dim_Embedding,HIDDEN_DIM,Dropout,Batch_tam,Epochs):
@@ -90,8 +90,9 @@ def Gen_Model(DATA,Dim_Embedding,HIDDEN_DIM,Dropout,Batch_tam,Epochs):
         valL, valA = evaluate(model, val_loader, criterion) #Validacion
 
         if valL < min: #tomar el mejor modelo
-            min    = valL
+            min       = valL
             final_Mod = model
+            epochF    = epoch+1
 
         train_loss.append(trainL) #guardar perdida
         val_loss.append(valL)
@@ -100,14 +101,15 @@ def Gen_Model(DATA,Dim_Embedding,HIDDEN_DIM,Dropout,Batch_tam,Epochs):
 
     testL, testA = evaluate(final_Mod, test_loader, criterion) #test
     print("\n\n=========TEST=========")
-    print(f"Pérdida Test: {testL:.4f} | "f"Precisión Test: {testA:.4f}")
+    print(f"Pérdida Test: {testL:.4f} | Precisión Test: {testA:.4f} | Model Epoch: {epochF}")
 
     plot(train_loss,val_loss)
+    
     try:
-        torch.save(final_Mod.state_dict(), "GruNetV3.pt") #Salvar pesos de modelo
-        with open("vocabV3.pkl", "wb") as f: #Salvar el vocabulario
+        torch.save(final_Mod.state_dict(), "GruNetV8.pt") #Salvar pesos de modelo
+        with open("vocabV8.pkl", "wb") as f: #Salvar el vocabulario
             pickle.dump(vocab, f)
-        with open("label_encoderV3.pkl", "wb") as f: #Salvar encoder
+        with open("label_encoderV8.pkl", "wb") as f: #Salvar encoder
             pickle.dump(encoder, f)
 
         print("El modelo se guardo con exito :D")
