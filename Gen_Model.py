@@ -79,7 +79,7 @@ def Gen_Model(DATA,Dim_Embedding,HIDDEN_DIM,Dropout,Batch_tam,Epochs):
 
     # Funcion de perdida y optimizador
     criterion = nn.CrossEntropyLoss() 
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.001) 
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-5) 
     
     train_loss = []
     val_loss   = []

@@ -30,7 +30,7 @@ def predict_emotion(text_a_predecir):
 
     print(f"Emoción Predicha: {emotions[int(predicted_index)]}")
 
-load_model("vocabV3.pkl","label_encoderV3.pkl","GruNetV3.pt")
+load_model("vocabFinal.pkl","label_encoderFinal.pkl","GruNetFinal.pt")
 print("Emotions: sadness,joy,love,anger,fear, surprise")
 
 while True:
