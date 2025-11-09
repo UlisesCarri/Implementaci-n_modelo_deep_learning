@@ -1,25 +1,26 @@
 # Implementacion de Modelo de Deep Learning
 
-Ulises Orlando Carrizalez Lerín - A01027715
+***Ulises Orlando Carrizalez Lerín - A01027715***
 
 **Link de Dataset en Kaggle:** https://www.kaggle.com/datasets/bhavikjikadara/emotions-dataset/data 
 
 ## Dataset
-Este proyecto hace uso del conjunto de datos de clasificación de emociones "Emotions Dataset" de Kaggle, este está diseñado para facilitar la investigación y la experimentación en el campo del procesamiento del lenguaje natural y el análisis de emociones. Contiene una colección diversa de muestras de texto, cada una etiquetada con la emoción correspondiente que transmite. Las emociones pueden variar desde felicidad y entusiasmo hasta enojo, tristeza y más.
+Este proyecto hace uso del conjunto de datos de clasificación de emociones "Emotions Dataset" de Kaggle, este está diseñado para facilitar la investigación y la experimentación en el campo del procesamiento del lenguaje natural y el análisis de emociones. Contiene una colección diversa de muestras de texto, cada una etiquetada con la emoción correspondiente que transmite.
 
 Las emociones del dataset se clasifican en seis categorías:
 
-* tristeza (0)
+* tristeza (sadness)
 
-* alegría (1)
+* alegría (joy)
 
-* amor (2)
+* amor (love)
 
-* enojo (3)
+* enojo (anger)
 
-* miedo (4)
+* miedo (fear)
 
-* sorpresa (5)
+* sorpresa (surprise)
+
 
 ## Modelo
 Para resolver el problema de análisis de sentimientos entre las diferentes clases, se implementó una red neuronal recurrente (RNN) del tipo GRU utilizando el framework PyTorch.
@@ -45,6 +46,12 @@ Finalmente, se guardaron los pesos del modelo en un archivo .pt, y tanto el voca
 
 * **Gen_Model.py**         : Archivo de Python para generar el modelo.
 
-* **Model_Componetnes.py** : contiene las funciones utiles y las arquitecturas del mmodelo y del dataset.
+* **Model_Componetnes.py** : Contiene las funciones útiles y las arquitecturas del modelo y del dataset.
 
-* **Exe_Model.py**         : Archivo para ejecutrar el modelo guardado en el .pt y los .pkl (colocar enunciados en ingles).
+* **Exe_Model.py**         : Archivo para ejecutar el modelo guardado en él .pt y los .pkl (colocar enunciados en inglés).
+
+* **Exe_Model.py**         : Script muy pequeño y simple para unir .csv y agregar más datos al dataset.
+
+* **Dataset**              : Directorio con todos los datasets.
+
+* **Modelos**              : Directorio con todos los modelos descartados (no se mencionan todos en el reporte porque si no sería muy largo).
