@@ -14,17 +14,17 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Usando dispositivo: {device}")
 
 # Hiperparámetros
-VOCAB_SIZE    = 70000
-Dim_Embedding = 100
-HIDDEN_DIM    = 128
-Dropout  = 0.5
-Batch_tam    = 32
-Epochs    = 30
-DATA          = r"emotions_newV2.csv"
+Size           = 70000
+Dim_Embedding  = 100
+Hidden         = 128
+Dropout        = 0.5
+Batch_tam      = 32
+Epochs         = 30
+DatasetEmotion = r"emotions_newV2.csv"
 
-def Gen_Model(DATA,Dim_Embedding,HIDDEN_DIM,Dropout,Batch_tam,Epochs):
+def Gen_Model(DatasetEmotion,Dim_Embedding,Hidden,Dropout,Batch_tam,Epochs):
     # Recuperar csv
-    df = pd.read_csv(DATA)
+    df = pd.read_csv(DatasetEmotion)
 
     # Preprocesamiento de etiquetas
     encoder     = LabelEncoder()
@@ -48,7 +48,7 @@ def Gen_Model(DATA,Dim_Embedding,HIDDEN_DIM,Dropout,Batch_tam,Epochs):
     idx_counter = 2
 
     # Solo añadir al vocabulario las palabras mas comunes (al final tome el vocabulario completo pero deje eso)
-    for word, _ in word_counts.most_common(VOCAB_SIZE - 2):
+    for word, _ in word_counts.most_common(Size - 2):
         vocab[word] = idx_counter
         idx_counter += 1
 
@@ -75,7 +75,7 @@ def Gen_Model(DATA,Dim_Embedding,HIDDEN_DIM,Dropout,Batch_tam,Epochs):
     test_loader  = DataLoader(test_dataset , batch_size=Batch_tam, shuffle=False, collate_fn=collate_fn)
 
     # Generar modelo
-    model = GRUClassifier(len(vocab), Dim_Embedding, HIDDEN_DIM, 1, N_Clases, Dropout).to(device)
+    model = GRUClassifier(len(vocab), Dim_Embedding, Hidden, 1, N_Clases, Dropout).to(device)
 
     # Funcion de perdida y optimizador
     criterion = nn.CrossEntropyLoss() 
@@ -116,4 +116,4 @@ def Gen_Model(DATA,Dim_Embedding,HIDDEN_DIM,Dropout,Batch_tam,Epochs):
     except:
         print("El modelo fallo en el proceso de guardado :(")
 
-Gen_Model(DATA,Dim_Embedding,HIDDEN_DIM,Dropout,Batch_tam,Epochs)
+Gen_Model(DatasetEmotion,Dim_Embedding,Hidden,Dropout,Batch_tam,Epochs)
